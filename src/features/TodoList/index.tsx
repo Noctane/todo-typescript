@@ -26,6 +26,8 @@ export const TodoList: React.FC = () => {
     dispatch({ type: 'CHECK_TODO', payload: todoId })
   }
 
+  console.log('todos', todos);
+
   return (
     <div className="w-full rounded overflow-hidden shadow-lg bg-white text-gray-500">
       <div className="px-6 py-4 border-b border-gray-300">

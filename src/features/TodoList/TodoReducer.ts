@@ -41,7 +41,8 @@ export function reducer(state: initialStateType, action: Actions): initialStateT
     }
     case 'REMOVE_TODO': {
       const todoIdx = state.todos.findIndex((t: Todo) => t.id === action.payload);
-      const todos = state.todos.splice(todoIdx, 1);
+      const todos = [...state.todos];
+      todos.splice(todoIdx, 1);
       return { todos: todos };
     }
     case 'CHECK_TODO': {
