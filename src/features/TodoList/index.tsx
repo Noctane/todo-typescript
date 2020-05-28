@@ -12,7 +12,7 @@ export const TodoList: React.FC = () => {
     setTodo(e.target.value);
   }
 
-  const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.FormEvent<HTMLFormElement>) => {
+  const onSaveTodo = (e: React.MouseEvent<HTMLButtonElement, MouseEvent> | React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     dispatch({ type: 'ADD_TODO', payload: todo });
     setTodo('');
@@ -22,11 +22,13 @@ export const TodoList: React.FC = () => {
     dispatch({ type: 'REMOVE_TODO', payload: todoId })
   }
 
+  const onEditTodo = (todoId: number, label: string) => {
+    console.log('todoId', todoId);
+    dispatch({ type: 'EDIT_TODO', payload: { id: todoId, label: label } })
+  }
   const onCheckTodo = (todoId: number) => {
     dispatch({ type: 'CHECK_TODO', payload: todoId })
   }
-
-  console.log('todos', todos);
 
   return (
     <div className="w-full rounded overflow-hidden shadow-lg bg-white text-gray-500">
@@ -34,7 +36,7 @@ export const TodoList: React.FC = () => {
         <h1 className="text-center">Todo list</h1>
       </div>
       <div className="py-4 px-6 border-b border-gray-300">
-        <form onSubmit={handleClick}>
+        <form onSubmit={onSaveTodo}>
           <div className="flex items-center">
             <input
               onChange={handleChange}
@@ -43,12 +45,19 @@ export const TodoList: React.FC = () => {
               placeholder="Get shit done"
               value={todo}
             />
-            <button disabled={todo === ''} onClick={handleClick} className="ml-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-200 text-white py-2 px-4 rounded">Save</button>
+            <button disabled={todo === ''} onClick={onSaveTodo} className="ml-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-200 text-white py-2 px-4 rounded">Save</button>
           </div>
         </form>
       </div>
       {todos.map(todo => (
-        <TodoItem todo={todo} isChecked={todo.checked} onCheckBoxChange={() => onCheckTodo(todo.id)} key={todo.id} onClickDelete={onDeleteTodo} />
+        <TodoItem
+          todo={todo}
+          isChecked={todo.checked}
+          onCheckBoxChange={() => onCheckTodo(todo.id)}
+          onClickEdit={onEditTodo}
+          key={todo.id}
+          onClickDelete={onDeleteTodo}
+        />
       ))}
     </div>);
 }

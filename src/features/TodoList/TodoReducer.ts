@@ -7,6 +7,7 @@ type Todo = {
 type Actions =
   | { type: 'ADD_TODO', payload: string }
   | { type: 'REMOVE_TODO', payload: number }
+  | { type: 'EDIT_TODO', payload: { id: number, label: string } }
   | { type: 'CHECK_TODO', payload: number };
 
 type initialStateType = {
@@ -44,6 +45,14 @@ export function reducer(state: initialStateType, action: Actions): initialStateT
       const todos = [...state.todos];
       todos.splice(todoIdx, 1);
       return { todos: todos };
+    }
+    case 'EDIT_TODO': {
+      const todoIdx = state.todos.findIndex((t: Todo) => t.id === action.payload.id);
+      const editedTodo = { ...state.todos[todoIdx] };
+      editedTodo.label = action.payload.label;
+      const newTodos = [...state.todos];
+      newTodos.splice(todoIdx, 1, editedTodo);
+      return { todos: newTodos };
     }
     case 'CHECK_TODO': {
       const todoIdx = state.todos.findIndex((t: Todo) => t.id === action.payload);
