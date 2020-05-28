@@ -2,10 +2,8 @@ import React, { useReducer, useState } from 'react'
 import { TodoItem } from '../../components/TodoItem';
 import { initialState, reducer } from './TodoReducer';
 
-interface TodoListProps {
-}
 
-export const TodoList: React.FC<TodoListProps> = () => {
+export const TodoList: React.FC = () => {
 
   const [{ todos }, dispatch] = useReducer(reducer, initialState);
   const [todo, setTodo] = useState<string>('')
