@@ -18,6 +18,10 @@ export const TodoList: React.FC = () => {
     setTodo('');
   }
 
+  const onDeleteTodo = (todoId: number) => {
+    dispatch({ type: 'REMOVE_TODO', payload: todoId })
+  }
+
   const onCheckTodo = (todoId: number) => {
     dispatch({ type: 'CHECK_TODO', payload: todoId })
   }
@@ -34,15 +38,15 @@ export const TodoList: React.FC = () => {
               onChange={handleChange}
               className="bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500"
               type="text"
-              placeholder="Learn Typescript"
+              placeholder="Get shit done"
               value={todo}
             />
-            <button onClick={handleClick} className="ml-2 bg-indigo-500 hover:bg-indigo-600 text-white py-2 px-4 rounded">Save</button>
+            <button disabled={todo === ''} onClick={handleClick} className="ml-2 bg-indigo-500 hover:bg-indigo-600 disabled:bg-gray-200 text-white py-2 px-4 rounded">Save</button>
           </div>
         </form>
       </div>
       {todos.map(todo => (
-        <TodoItem label={todo.label} isChecked={todo.checked} onCheckBoxChange={() => onCheckTodo(todo.id)} key={todo.id} />
+        <TodoItem todo={todo} isChecked={todo.checked} onCheckBoxChange={() => onCheckTodo(todo.id)} key={todo.id} onClickDelete={onDeleteTodo} />
       ))}
     </div>);
 }

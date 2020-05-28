@@ -13,7 +13,20 @@ type initialStateType = {
   todos: Todo[];
 }
 
-export const initialState = { todos: [] };
+export const initialState = {
+  todos: [
+    {
+      id: 0,
+      label: 'Learn TypeScript',
+      checked: false,
+    },
+    {
+      id: 1,
+      label: 'Make a todo app',
+      checked: false,
+    }
+  ]
+};
 
 export function reducer(state: initialStateType, action: Actions): initialStateType {
 
