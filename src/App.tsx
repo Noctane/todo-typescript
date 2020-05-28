@@ -1,4 +1,5 @@
 import React from 'react';
+import { TodoItem } from './components/TodoItem';
 
 function App() {
   return (
@@ -19,7 +20,7 @@ function App() {
             </div>
           </div>
           <div className="py-4 px-6">
-            test
+            <TodoItem label="Learn Vim" />
           </div>
         </div>
       </div>
